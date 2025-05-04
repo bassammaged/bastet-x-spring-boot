@@ -1,4 +1,4 @@
-package com.example.companyInventortyMgmt.departments;
+package com.example.basetX.departments;
 
 import java.util.List;
 import java.util.Optional;

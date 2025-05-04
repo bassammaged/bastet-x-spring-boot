@@ -1,10 +1,10 @@
-package com.example.companyInventortyMgmt.departments;
+package com.example.basetX.departments;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.companyInventortyMgmt.utils.response.Message;
-import com.example.companyInventortyMgmt.utils.response.RestResponseEntity;
+import com.example.basetX.utils.response.Message;
+import com.example.basetX.utils.response.RestResponseEntity;
 
 import java.util.List;
 import java.util.Map;

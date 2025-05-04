@@ -1,4 +1,4 @@
-package com.example.companyInventortyMgmt.departments;
+package com.example.basetX.departments;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

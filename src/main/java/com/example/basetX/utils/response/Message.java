@@ -1,4 +1,4 @@
-package com.example.companyInventortyMgmt.utils.response;
+package com.example.basetX.utils.response;
 
 import lombok.Getter;
 

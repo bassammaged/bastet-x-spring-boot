@@ -1,4 +1,4 @@
-package com.example.companyInventortyMgmt.departments;
+package com.example.basetX.departments;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
