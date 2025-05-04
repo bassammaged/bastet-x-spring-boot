@@ -1,5 +1,6 @@
 package com.example.companyInventortyMgmt.departments;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.companyInventortyMgmt.utils.response.Message;
@@ -24,7 +25,8 @@ public class DepartmentsController {
     DepartmentsController(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
-    
+
+    @PreAuthorize("hasAuthority('WRITE_DEPARTMENT')")
     // Create department
     @PostMapping("")
     public ResponseEntity<DepartmentsEntity> createDepartment(@RequestBody DepartmentsEntity department) {
@@ -33,6 +35,7 @@ public class DepartmentsController {
         return new ResponseEntity<>(department,HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("")
     public ResponseEntity<Map<String,Object>> getDepartments() {
         List<DepartmentsEntity> departments = this.departmentService.retrieveAll();
@@ -43,6 +46,7 @@ public class DepartmentsController {
         }
     }
 
+    @PreAuthorize("hasAuthority('READ_DEPARTMENT')")
     @GetMapping("{departmentId}")
     public ResponseEntity<Map<String,Object>> getDepartment(@PathVariable int departmentId) {
         DepartmentsEntity department = this.departmentService.retrieve(departmentId);
@@ -53,6 +57,7 @@ public class DepartmentsController {
         }
     }
 
+    @PreAuthorize("hasAuthority('DELETE_DEPARTMENT')")
     @DeleteMapping("{departmentCode}")
     public ResponseEntity<Map<String, Object>> deleteDepartment(@PathVariable String departmentCode) {
         try {
@@ -66,8 +71,8 @@ public class DepartmentsController {
         }
     }
 
-
-    @PutMapping("/departments/{id}")
+    @PreAuthorize("hasAuthority('EDIT_DEPARTMENT')")
+    @PutMapping("{id}")
     public ResponseEntity<Map<String, Object>> updateDepartment(@PathVariable int id, @RequestParam(required = false) String name, @RequestParam(required = false) String code) {
         Boolean updated = departmentService.updateDepartment(id, name, code);
         if (updated) {

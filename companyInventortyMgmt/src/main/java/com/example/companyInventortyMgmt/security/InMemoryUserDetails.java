@@ -3,6 +3,7 @@ package com.example.companyInventortyMgmt.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,8 +38,8 @@ public class InMemoryUserDetails {
         UserDetails manager = User.builder()
                 .username("charlie@example.com")
                 .password(passwordEncoder.encode("charlie"))
-                .roles("MANAGER")
-                .authorities("READ_DEPARTMENT", "EDIT_DEPARTMENT", "DELETE_DEPARTMENT")
+//                .roles("MANAGER")
+                .authorities("ROLE_MANAGER","READ_DEPARTMENT", "EDIT_DEPARTMENT", "DELETE_DEPARTMENT")
                 .build();
 
         return new InMemoryUserDetailsManager(member, leader, manager);
