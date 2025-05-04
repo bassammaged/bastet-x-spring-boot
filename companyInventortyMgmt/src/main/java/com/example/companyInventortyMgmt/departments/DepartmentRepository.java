@@ -1,13 +1,13 @@
-package com.example.companyInventortMgmt.departments;
+package com.example.companyInventortyMgmt.departments;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
 
 @Repository
 public class DepartmentRepository {
@@ -41,6 +41,25 @@ public class DepartmentRepository {
         query.setParameter("code", departmentCode);
         int rowsDeleted = query.executeUpdate();
         return rowsDeleted > 0;
+    }
+
+    @Transactional
+    Boolean updateById(int id, String name, String departmentCode) {
+        Optional<DepartmentsEntity> departmentOptional = Optional.ofNullable(this.findById(id));
+
+        if(departmentOptional.isPresent()) {
+            DepartmentsEntity department = departmentOptional.get();
+            if (name != null && !name.isEmpty()) {
+                department.setName(name);
+            }
+            if (departmentCode != null && !departmentCode.isEmpty()) {
+                department.setCode(departmentCode);
+            }
+            this.entityManager.merge(department);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

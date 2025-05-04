@@ -1,4 +1,4 @@
-package com.example.companyInventortMgmt.departments;
+package com.example.companyInventortyMgmt.departments;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

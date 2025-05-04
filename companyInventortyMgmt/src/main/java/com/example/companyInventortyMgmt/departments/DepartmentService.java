@@ -1,4 +1,4 @@
-package com.example.companyInventortMgmt.departments;
+package com.example.companyInventortyMgmt.departments;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,5 +44,13 @@ public class DepartmentService {
 
     public Boolean deleteDepartment(String departmentCode) {
         return departmentRepository.deleteByCode(departmentCode);
+    }
+
+    @Transactional
+    public Boolean updateDepartment(int id, String name, String departmentCode) {
+        String sanitizedName = (name != null && !name.isEmpty()) ? this.sanitize(name) : null;
+        String sanitizedCode = (departmentCode != null && !departmentCode.isEmpty()) ? this.sanitize(departmentCode) : null;
+
+        return departmentRepository.updateById(id, sanitizedName, sanitizedCode);
     }
 }

@@ -1,14 +1,9 @@
-package com.example.companyInventortMgmt.departments;
+package com.example.companyInventortyMgmt.departments;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.companyInventortMgmt.utils.response.Message;
-import com.example.companyInventortMgmt.utils.response.RestResponseEntity;
-
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import com.example.companyInventortyMgmt.utils.response.Message;
+import com.example.companyInventortyMgmt.utils.response.RestResponseEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -16,13 +11,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
-
 
 
 @RestController
@@ -48,7 +36,7 @@ public class DepartmentsController {
     @GetMapping("")
     public ResponseEntity<Map<String,Object>> getDepartments() {
         List<DepartmentsEntity> departments = this.departmentService.retrieveAll();
-        if (departments.size() != 0) {
+        if (!departments.isEmpty()) {
             return RestResponseEntity.success(departments, HttpStatus.OK, Message.OPERATION_SUCCESS);
         } else {
             return RestResponseEntity.error(HttpStatus.OK, Message.OPERATION_FAILED);
@@ -74,12 +62,20 @@ public class DepartmentsController {
                 return RestResponseEntity.error(departmentCode + " Department is not exist", HttpStatus.NOT_FOUND, Message.OPERATION_FAILED);
             }
         } catch (Exception e) {
-            return RestResponseEntity.error("Failed to delete department: " + departmentCode + "", HttpStatus.NOT_FOUND, Message.OPERATION_FAILED);
+            return RestResponseEntity.error("Failed to delete department: " + departmentCode, HttpStatus.NOT_FOUND, Message.OPERATION_FAILED);
         }
     }
 
 
-    // TODO: Update
+    @PutMapping("/departments/{id}")
+    public ResponseEntity<Map<String, Object>> updateDepartment(@PathVariable int id, @RequestParam(required = false) String name, @RequestParam(required = false) String code) {
+        Boolean updated = departmentService.updateDepartment(id, name, code);
+        if (updated) {
+            return RestResponseEntity.success(HttpStatus.OK,Message.OPERATION_SUCCESS);
+        } else {
+            return RestResponseEntity.error(HttpStatus.OK,Message.OPERATION_FAILED);
+        }
+    }
     
     
 }

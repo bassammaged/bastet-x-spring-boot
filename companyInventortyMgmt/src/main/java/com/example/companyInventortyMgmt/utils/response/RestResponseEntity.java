@@ -1,4 +1,4 @@
-package com.example.companyInventortMgmt.utils.response;
+package com.example.companyInventortyMgmt.utils.response;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
